@@ -13,4 +13,23 @@ export default class GotObject{
     getCharacter(id){
         return this.getObject(`characters/${id}`);
     }
+
+    getBook(id){
+        return this.getObject(`books/${id}`);
+    }
+
+    getHouse(id){
+        return this.getObject(`houses/${id}`);
+    }
+
+    getCharacters(){
+        return this.getObject(`characters/?page=4`);
+    }
+
+    getBooks(){
+        return this.getObject(`books`);
+    }
+    getHouses(){
+        return this.getObject(`houses`);
+    }
 }
