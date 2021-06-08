@@ -10,8 +10,9 @@ export default class GotObject{
         return json;
     }
 
-    getCharacter(id){
-        return this.getObject(`characters/${id}`);
+    async getCharacter(id){
+        const res =  await this.getObject(`characters/${id}`);
+        return this._transformCharacter(res);
     }
 
     getBook(id){
@@ -22,8 +23,9 @@ export default class GotObject{
         return this.getObject(`houses/${id}`);
     }
 
-    getCharacters(){
-        return this.getObject(`characters/?page=4`);
+    async getCharacters(){
+        const res = await this.getObject(`characters/?page=4`);
+        return res.map(this._transformCharacter);
     }
 
     getBooks(){
@@ -31,5 +33,35 @@ export default class GotObject{
     }
     getHouses(){
         return this.getObject(`houses`);
+    }
+
+    _transformCharacter(char){
+        return{
+            name: char.name,
+            gender: char.gender,
+            born: char.born,
+            died: char.died,
+            culture: char.culture
+        }
+    }
+
+    _transformHouse(house){
+        return{
+            name: house.name,
+            region: house.region,
+            words: house.words,
+            titles: house.titles,
+            overlord: house.overlord,
+            ancestralWeapons: house.ancestralWeapons
+        }
+    }
+
+    _transformBook(book){
+        return{
+            name: book.name,
+            numberOfPages: book.numberOfPages,
+            publisher: book.publisher,
+            released: book.released
+        }
     }
 }
