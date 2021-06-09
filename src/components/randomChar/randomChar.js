@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import GotObjects from '../../services/GotObjects';
+import Spiner from '../spiner';
 import './randomChar.css';
 
 export default class RandomChar extends Component {
@@ -11,11 +12,16 @@ export default class RandomChar extends Component {
 
     GotObjects = new GotObjects();
     state = {
-        char:{}
+        char:{},
+        loading: true
     }
 
     onCharLoaded = (char) => {
-        this.setState({char});
+        this.setState({
+            char,
+            loading: false
+        });
+
     }
 
     updateCharacter(){
@@ -25,10 +31,28 @@ export default class RandomChar extends Component {
     }
 
     render() {
-        const {char:{gender, born, died, culture, name}} = this.state;
+        const {char, loading} = this.state;
+        if(loading){
+            return <Spiner />
+        }
+        const spiner = loading ? <Spiner /> : null;
+        const content = !loading ? <View char={char}/> : null;
         return (
             <div className="random-block rounded">
-                <h4>Random Character: {name}</h4>
+               {spiner}
+               {content}
+            </div>
+        );
+    }
+}
+
+const View = ({char})=>{
+
+    const {gender, born, died, culture, name} = char;
+
+    return(
+        <>
+            <h4>Random Character: {name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Gender </span>
@@ -47,7 +71,6 @@ export default class RandomChar extends Component {
                         <span>{culture}</span>
                     </li>
                 </ul>
-            </div>
-        );
-    }
+        </>
+    )
 }
