@@ -53,8 +53,8 @@ export default class App extends Component {
     }
 };
 
-const switchButton = () =>{
+/*const SwitchButton = () =>{
     return(
         <button onClick={this.switchCharVisibility}>Switch Random Char</button>
     );
-}
+}*/

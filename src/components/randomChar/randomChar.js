@@ -8,13 +8,21 @@ export default class RandomChar extends Component {
     
     constructor(){
         super();
-        this.updateCharacter();
+        this.updateCharacter = this.updateCharacter.bind(this);
     }
 
     GotObjects = new GotObjects();
     state = {
         char:{},
         loading: true
+    }
+    componentDidMount(){
+        this.updateCharacter();
+        this.timerId = setInterval(this.updateCharacter, 1500);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.timerId);
     }
 
     onCharLoaded = (char) => {
@@ -33,7 +41,7 @@ export default class RandomChar extends Component {
         })
     }
 
-    updateCharacter(){
+    updateCharacter = () =>{
         const id = Math.floor(Math.random()*140 + 25);
         this.GotObjects.getCharacter(id)
             .then(this.onCharLoaded)
