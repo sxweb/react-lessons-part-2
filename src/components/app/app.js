@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import CharacterPage from "../characterPage";
 
 
 export default class App extends Component {
@@ -26,7 +25,9 @@ export default class App extends Component {
     render(){
 
         const char = (this.state.showChar)? <RandomChar/> : null;
-
+        fetch('https://anapioficeandfire.com/api/characters/45')
+            .then((res) => res.json())
+            .then(json => console.log(json));
         return (
             <> 
                 <Container>
@@ -39,14 +40,7 @@ export default class App extends Component {
                             <button onClick={this.switchCharVisibility}>Switch Random Char</button>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
+                    <CharacterPage />
                 </Container>
             </>
         );
