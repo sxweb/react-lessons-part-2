@@ -2,37 +2,44 @@ export default class GotObject{
 
     constructor(){
         this._baseUrl = 'https://anapioficeandfire.com/api/';
+        this.getId = this.getId.bind(this);
     }
 
-    async getObject(url){
+    getObject = async(url) => {
         const res = await fetch(`${this._baseUrl}${url}`);
         const json = await res.json();
         return json;
     }
 
-    async getCharacter(id){
+    getCharacter = async(id) => {
         const res =  await this.getObject(`characters/${id}`);
         return this._transformCharacter(res);
     }
 
-    getBook(id){
+    getBook = (id) =>{
         return this.getObject(`books/${id}`);
     }
 
-    getHouse(id){
+    getHouse = (id) => {
         return this.getObject(`houses/${id}`);
     }
 
-    async getCharacters(){
+    getCharacters = async() => {
         const res = await this.getObject(`characters/?page=4`);
         return res.map(this._transformCharacter);
     }
 
-    getBooks(){
+    getBooks = () => {
         return this.getObject(`books`);
     }
-    getHouses(){
+    getHouses = () => {
         return this.getObject(`houses`);
+    }
+
+    getId(value){
+        const reg = /\d/gi;
+        const id = parseInt(value.match(reg).join(''));
+        return id;
     }
 
     _transformCharacter(char){
