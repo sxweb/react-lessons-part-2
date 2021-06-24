@@ -2,7 +2,6 @@ export default class GotObject{
 
     constructor(){
         this._baseUrl = 'https://anapioficeandfire.com/api/';
-        this.getId = this.getId.bind(this);
     }
 
     getObject = async(url) => {
@@ -29,49 +28,59 @@ export default class GotObject{
         return res.map(this._transformCharacter);
     }
 
-    getBooks = () => {
-        return this.getObject(`books`);
+    getBooks = async() => {
+        const res = await this.getObject(`books`);
+        return res.map(this._transformBook);
     }
-    getHouses = () => {
-        return this.getObject(`houses`);
+    getHouses = async() => {
+        const res = await this.getObject(`houses`);
+        return res.map(this._transformHouse);
     }
 
-    getId(value){
+    getId =(value) =>{
         const reg = /\d/gi;
         const id = parseInt(value.match(reg).join(''));
         return id;
     }
 
-    _transformCharacter(char){
-        const reg = /\d/gi;
-        const id = parseInt(char.url.match(reg).join(''));
+    checkValue = (value) =>{
+        value = value ? value : 'no data'
+        return value;
+    }
+
+    _transformCharacter = (char) =>{
+        const id = this.getId(char.url);
         return{
-            name: char.name ? char.name : 'no data',
-            gender: char.gender ? char.gender : 'no data',
-            born: char.born ? char.born : 'no data',
-            died: char.died ? char.died : 'no data',
-            culture: char.culture ? char.culture : 'no data',
-            id: id ? id : 'no data'
+            name:  this.checkValue(char.name),
+            gender:  this.checkValue(char.gender),
+            born: this.checkValue(char.born),
+            died: this.checkValue(char.died),
+            culture: this.checkValue(char.culture),
+            id: this.checkValue(id)
         }
     }
 
-    _transformHouse(house){
+    _transformHouse = (house) =>{
+        const id = this.getId(house.url);
         return{
-            name: house.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overlord: house.overlord,
-            ancestralWeapons: house.ancestralWeapons
+            name: this.checkValue(house.name),
+            region: this.checkValue(house.region),
+            words: this.checkValue(house.words),
+            titles: this.checkValue(house.titles),
+            overlord: this.checkValue(house.overlord),
+            ancestralWeapons: this.checkValue(house.ancestralWeapons),
+            id: this.checkValue(id)
         }
     }
 
-    _transformBook(book){
+    _transformBook = (book) =>{
+        const id = this.getId(book.url);
         return{
-            name: book.name,
-            numberOfPages: book.numberOfPages,
-            publisher: book.publisher,
-            released: book.released
+            name: this.checkValue(book.name),
+            numberOfPages: this.checkValue(book.numberOfPages),
+            publisher: this.checkValue(book.publisher),
+            released: this.checkValue(book.released),
+            id: this.checkValue(id)
         }
     }
 }

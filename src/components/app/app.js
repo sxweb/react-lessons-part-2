@@ -3,6 +3,9 @@ import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import CharacterPage from "../characterPage";
+import ItemList from '../itemList';
+import CharDetails from '../charDetails';
+import GotObjects from '../../services/GotObjects';
 
 
 export default class App extends Component {
@@ -11,7 +14,7 @@ export default class App extends Component {
         super();
         this.switchCharVisibility = this.switchCharVisibility.bind(this);
     }
-
+    GotObjects = new GotObjects();
     state = {
         showChar: true
     }
@@ -41,6 +44,28 @@ export default class App extends Component {
                         </Col>
                     </Row>
                     <CharacterPage />
+                    <Row>
+                        <Col md='6'>
+                            <ItemList 
+                                onCharSelected = {this.onCharSelected}
+                                getData = {this.GotObjects.getBooks}
+                                renderItem = {(item) => item.name}/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId = {this.state.selectedChar}/>
+                        </Col>
+                     </Row>
+                     <Row>
+                        <Col md='6'>
+                            <ItemList 
+                                onCharSelected = {this.onCharSelected}
+                                getData = {this.GotObjects.getHouses}
+                                renderItem = {(item) => item.name}/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId = {this.state.selectedChar}/>
+                        </Col>
+                     </Row>
                 </Container>
             </>
         );

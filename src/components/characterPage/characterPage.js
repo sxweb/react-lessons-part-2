@@ -8,7 +8,6 @@ import GotObjects from '../../services/GotObjects';
 export default class CharacterPage extends Component{
     
     GotObjects = new GotObjects();
-    
     state = {
         selectedChar: 130,
         error: false
@@ -32,7 +31,8 @@ export default class CharacterPage extends Component{
                 <Col md='6'>
                     <ItemList 
                         onCharSelected = {this.onCharSelected}
-                        getData = {this.GotObjects.getCharacters}/>
+                        getData = {this.GotObjects.getCharacters}
+                        renderItem = {(item) => `${item.name} (${item.gender})`}/>
                 </Col>
                 <Col md='6'>
                     <CharDetails charId = {this.state.selectedChar}/>
