@@ -32,7 +32,7 @@ export default class CharacterPage extends Component{
         const itemList = (
             <ItemList  onItemSelected = {this.onItemSelected}
                         getData = {this.GotObjects.getCharacters}
-                        renderItem = {({name, gender, id}) => `${name} (${gender})`}/>
+                        renderItem = {({name, gender}) => `${name} (${gender})`}/>
         );
         const charDetails = (
             <CharDetails charId = {this.state.selectedChar}>
