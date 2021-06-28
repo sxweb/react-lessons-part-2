@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ItemList from '../itemList';
-import CharDetails, {Field} from '../charDetails';
+import ItemDetails, {Field} from '../charDetails';
 import ErrorMessage from "../errorMessage";
 import GotObjects from '../../services/GotObjects';
 import RowBlock from '../rowBlock';
@@ -34,16 +34,19 @@ export default class CharacterPage extends Component{
                         getData = {this.GotObjects.getCharacters}
                         renderItem = {({name, gender}) => `${name} (${gender})`}/>
         );
-        const charDetails = (
-            <CharDetails charId = {this.state.selectedChar}>
+        const itemDetails = (
+            <ItemDetails
+                charId = {this.state.selectedChar}
+                getData={this.GotObjects.getCharacter}
+                itemId = {this.state.selectedChar}>
                 <Field fieldName = 'gender' label='Gender'/>
                 <Field fieldName = 'born' label='Born'/>
                 <Field fieldName = 'died' label='Died'/>
                 <Field fieldName = 'culture' label='Culture'/>
-            </CharDetails>
+            </ItemDetails>
         );
         return(
-            <RowBlock left = {itemList} right={charDetails} />
+            <RowBlock left = {itemList} right={itemDetails} />
         )
     }
 }

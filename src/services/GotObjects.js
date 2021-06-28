@@ -15,12 +15,14 @@ export default class GotObject{
         return this._transformCharacter(res);
     }
 
-    getBook = (id) =>{
-        return this.getObject(`books/${id}`);
+    getBook = async (id) =>{
+        const res = await this.getObject(`books/${id}`);
+        return this._transformBook(res);
     }
 
-    getHouse = (id) => {
-        return this.getObject(`houses/${id}`);
+    getHouse = async (id) => {
+        const res = await this.getObject(`houses/${id}`);
+        return this._transformHouse(res);
     }
 
     getCharacters = async() => {

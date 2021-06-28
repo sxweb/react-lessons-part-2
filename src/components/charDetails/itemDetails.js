@@ -13,7 +13,7 @@ const Field = ({item, fieldName, label}) => {
 
 export {Field}
 
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
     GotObjects = new GotObjects();
     state = {
         item: null
@@ -34,7 +34,7 @@ export default class CharDetails extends Component {
         if(!charId){
             return;
         }
-        this.GotObjects.getCharacter(charId)
+        this.props.getData(this.props.itemId)
             .then((item) =>{
                 this.setState({item});
             });
