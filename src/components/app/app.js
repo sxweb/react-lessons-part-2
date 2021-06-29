@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import {CharacterPage, BooksPage, HousesPage} from "../pages";
+import {CharacterPage, BooksPage, HousesPage, ItemPage} from "../pages";
 import GotObjects from '../../services/GotObjects';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 export default class App extends Component {
@@ -30,22 +31,31 @@ export default class App extends Component {
             .then((res) => res.json())
             .then(json => console.log(json));
         return (
-            <> 
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {char}
-                            <button onClick={this.switchCharVisibility}>Switch Random Char</button>
-                        </Col>
-                    </Row>
-                    <CharacterPage />
-                    <BooksPage/>
-                    <HousesPage/>
-                </Container>
-            </>
+            <Router>
+                <div className="app"> 
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col lg={{size: 5, offset: 0}}>
+                                {char}
+                                <button onClick={this.switchCharVisibility}>Switch Random Char</button>
+                            </Col>
+                        </Row>
+
+                        <Route path='/characters' component={CharacterPage}/>
+                        <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/houses' component={HousesPage}/>
+                        <Route path='/books/:id' render={
+                            ({match}) =>{
+                                const {id} = match.params;
+                                return <ItemPage itemId = {id}/>
+                            }
+                        }/>
+                    </Container>
+                </div>
+            </Router>
         );
     }
 };
