@@ -37,7 +37,6 @@ export default class HousesPage extends Component{
         );
         const itemDetails = (
             <ItemDetails
-                charId = {this.state.selectedChar}
                 getData={this.GotObjects.getHouse}
                 itemId = {this.state.selectedChar}>
                 <Field fieldName = 'name' label='Name'/>

@@ -36,7 +36,6 @@ export default class CharacterPage extends Component{
         );
         const itemDetails = (
             <ItemDetails
-                charId = {this.state.selectedChar}
                 getData={this.GotObjects.getCharacter}
                 itemId = {this.state.selectedChar}>
                 <Field fieldName = 'gender' label='Gender'/>

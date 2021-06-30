@@ -5,6 +5,7 @@ import RandomChar from '../randomChar';
 import {CharacterPage, BooksPage, HousesPage, ItemPage} from "../pages";
 import GotObjects from '../../services/GotObjects';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './app.css';
 
 
 export default class App extends Component {
@@ -44,13 +45,13 @@ export default class App extends Component {
                             </Col>
                         </Row>
 
-                        <Route path='/characters' component={CharacterPage}/>
-                        <Route path='/books' exact component={BooksPage}/>
-                        <Route path='/houses' component={HousesPage}/>
+                        <Route path='/characters/' exact component={CharacterPage}/>
+                        <Route path='/books/' exact component={BooksPage}/>
+                        <Route path='/houses/' exact component={HousesPage}/>
                         <Route path='/books/:id' render={
                             ({match}) =>{
                                 const {id} = match.params;
-                                return <ItemPage itemId = {id}/>
+                                return <ItemPage itemId = {id} getData = {this.GotObjects.getBook}/>
                             }
                         }/>
                     </Container>

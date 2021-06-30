@@ -24,14 +24,14 @@ export default class ItemDetails extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.charId !== prevProps.charId){
+        if(this.props.itemId !== prevProps.itemId){
             this.updateChar();
         }
     }
 
     updateChar(){
-        const {charId} = this.props;
-        if(!charId){
+        const {itemId} = this.props;
+        if(!itemId){
             return;
         }
         this.props.getData(this.props.itemId)

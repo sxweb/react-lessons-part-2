@@ -8,8 +8,7 @@ export default class ItemPage extends Component{
     render(){
         return(
             <ItemDetails
-                charId = {this.props.itemId}
-                getData={this.gotObjects.getBook}
+                getData={this.props.getData}
                 itemId = {this.props.itemId}>
                     <Field fieldName = 'name' label='Name'/>
                     <Field fieldName = 'publisher' label='Publisher'/>
