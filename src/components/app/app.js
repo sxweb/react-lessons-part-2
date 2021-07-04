@@ -45,9 +45,9 @@ export default class App extends Component {
                             </Col>
                         </Row>
 
-                        <Route path='/characters/' exact component={CharacterPage}/>
-                        <Route path='/books/' exact component={BooksPage}/>
-                        <Route path='/houses/' exact component={HousesPage}/>
+                        <Route path='/characters' exact component={CharacterPage}/>
+                        <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/houses' exact component={HousesPage}/>
                         <Route path='/books/:id' render={
                             ({match}) =>{
                                 const {id} = match.params;

@@ -1,22 +1,8 @@
 import React, {Component} from 'react';
 import Spiner from '../spiner';
 import './itemList.css';
-export default class ItemList extends Component {
-
-    state = {
-        itemList: null
-    }
-
-    componentDidMount(){
-        const {getData} = this.props;
-        getData()
-            .then((itemList) => {
-                this.setState({
-                    itemList
-                })
-            })
-    }
-
+import GotObject from "../../services/GotObjects";
+class ItemList extends Component {
     renderItems(arr){
         return arr.map((item, i) => {
             const {id} = item;
@@ -31,12 +17,8 @@ export default class ItemList extends Component {
 
     render() {
 
-        const {itemList} = this.state;
-        
-        if(!itemList){
-            return <Spiner />;
-        }
-        const items = this.renderItems(itemList);
+        const {data} = this.props;
+        const items = this.renderItems(data);
         return (
             <ul className="item-list list-group">
                 {items}
@@ -44,3 +26,30 @@ export default class ItemList extends Component {
         );
     }
 }
+
+const withData = (View, getData) =>{
+    return class extends Component {
+        state = {
+            data: null
+        }
+
+        componentDidMount(){
+            getData()
+                .then((data) => {
+                    this.setState({
+                        data
+                    })
+                })
+        }
+        render(){
+            const {data} = this.state;
+
+            if(!data){
+                return <Spiner />;
+            }
+            return <View {...this.props} data = {data}/>;
+        }
+    }
+}
+const {getCharacters} = new GotObject();
+export default withData(ItemList, getCharacters);
